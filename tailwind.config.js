@@ -9,5 +9,10 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  variants: { // all the following default to ['responsive']
+    imageRendering: ['responsive'],
+  },
+  plugins: [
+    require('tailwindcss-image-rendering')(),
+  ],
 }
