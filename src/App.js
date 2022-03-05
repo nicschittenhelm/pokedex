@@ -1,12 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { useEffect, useState } from "react"
+import Card from "./Card"
 
-function App() {
-  return (
-    <div className="bg-black text-white text-3xl">
-      Working??
-    </div>
-  );
+const URL_SEARCH = "https://pokeapi.co/api/v2/pokemon/"
+//const URL_LIST = "https://pokeapi.co/api/v2/pokemon?limit=152"
+
+const App = () => {
+
+    const [pokemon, setPokemon] = useState([]);
+
+    const searchPokedex = async (name) => {
+        const response = await fetch(`${URL_SEARCH}${name}`)
+        const data = await response.json();
+        setPokemon(data)
+    }
+
+    useEffect(() => {
+        searchPokedex("poliwrath")
+    }, []);
+
+    return (
+        <>
+        <h1 className="bg-black text-red-600">Pokedex</h1>
+        <div className="flex">
+          <Card pokemon={pokemon} />
+          <Card pokemon={pokemon} />
+          <Card pokemon={pokemon} />
+        </div>
+        </>
+    );
 }
 
 export default App;
