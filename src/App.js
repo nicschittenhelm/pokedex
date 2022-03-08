@@ -18,7 +18,7 @@ const App = () => {
         setPokemon(pokedex);
         setLoading(false);
     }
-//dsdsd
+
     const getPokemonData = async (id) => {
         const response = await fetch(`${URL}${id}`);
         const data = await response.json();
@@ -49,7 +49,7 @@ const App = () => {
                 ))}
             </div>
         </div>
-        
+
         </>
         )
     );
