@@ -28,17 +28,6 @@ const Card = ({pokemon}) => {
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const test = () => {
-        console.log(isPopupOpen)
-        setIsPopupOpen(false)
-        console.log(isPopupOpen)
-        console.log("It worked")
-    }
-
-    useEffect(() => {
-        console.log("status changed!")
-    }, [isPopupOpen]);
-
     let colorA = "#FF0000";
     let colorB = "#0000FF";
 
@@ -51,21 +40,16 @@ const Card = ({pokemon}) => {
     }
     
     return (
-        <div className="bg-black h-80 w-60 rounded-md drop-shadow-xl p-2 m-5" style={{background:`linear-gradient(150deg, ${colorA} 0%, ${colorB} 100%)`}}>
+        <div onClick={(e) => {setIsPopupOpen(true)}} className="bg-black h-80 w-60 rounded-md drop-shadow-xl p-2 m-5" style={{background:`linear-gradient(150deg, ${colorA} 0%, ${colorB} 100%)`}}>
             <h2 className="text-3xl text-white capitalize font-bold drop-shadow">{pokemon.name}</h2>
             
                 {pokemon.types.map(p => (
                     <p className="text-white drop-shadow capitalize" key={p.type.name}>{p.type.name}</p>
                 ))}
-            <button onClick={() => setIsPopupOpen(true)} className="bg-black">Open</button>
             <img src={pokemon.sprites.front_default} alt={pokemon.name} className="absolute w-full -bottom-10 -right-10 rendering-pixelated"/>
-            <CardPopup open={isPopupOpen} close={() => test()} />
+            <CardPopup open={isPopupOpen} close={() => setIsPopupOpen(false)} />
         </div>
     )
 }
 
 export default Card
-
-// making the entire card div clickable made all the children clickable thus executing the function setting the state to true again.
-// temporary fixed by having another button for opening the popup
-// todo: finding a way to make antire div clickable without setting the state to true over and over again
