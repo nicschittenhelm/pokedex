@@ -9,7 +9,7 @@ module.exports = {
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',
-      }
+      },
     },
   },
   variants: { // all the following default to ['responsive']

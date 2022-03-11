@@ -41,9 +41,9 @@ const App = () => {
         : (
         <>
 
-        <h1 className="text-red-600 text-center my-10 lg:text-8xl md:text-6xl font-bold">Pokédex</h1>
+        <h1 className="text-red-600 text-center h-32 text-6xl lg:text-8xl font-bold">Pokédex</h1>
         <div className="flex flex-row min-h-screen justify-center items-center">
-            <div className="rounded-md drop-shadow-xl bg-white xl:w-[1150px] lg:w-[900px] md:w-[600px] flex flex-wrap justify-center">
+            <div className="rounded-md drop-shadow-xl xl:w-[1150px] lg:w-[900px] md:w-[600px] flex flex-wrap justify-center">
                 {pokemon.map(p => (
                 <Card pokemon={p} key={p.name}/>
                 ))}

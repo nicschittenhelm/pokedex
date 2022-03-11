@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import CardPopup from "./CardPopup";
 
 var typeColors = {
@@ -38,16 +38,17 @@ const Card = ({pokemon}) => {
         colorA = typeColors[pokemon.types[0].type.name];
         colorB = "rgba(0,0,0,0)"
     }
-    
+
     return (
         <div onClick={(e) => {setIsPopupOpen(true)}} className="bg-black h-80 w-60 rounded-md drop-shadow-xl p-2 m-5" style={{background:`linear-gradient(150deg, ${colorA} 0%, ${colorB} 100%)`}}>
             <h2 className="text-3xl text-white capitalize font-bold drop-shadow">{pokemon.name}</h2>
             
-                {pokemon.types.map(p => (
-                    <p className="text-white drop-shadow capitalize" key={p.type.name}>{p.type.name}</p>
-                ))}
+            {pokemon.types.map(p => (
+                <p className="text-white drop-shadow capitalize" key={p.type.name}>{p.type.name}</p>
+            ))}
+            
             <img src={pokemon.sprites.front_default} alt={pokemon.name} className="absolute w-full -bottom-10 -right-10 rendering-pixelated"/>
-            <CardPopup open={isPopupOpen} close={() => setIsPopupOpen(false)} />
+            <CardPopup typeColors={typeColors} pokemonData={pokemon} open={isPopupOpen} close={() => setIsPopupOpen(false)} />
         </div>
     )
 }
