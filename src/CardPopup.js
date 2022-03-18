@@ -54,7 +54,7 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                 ))}
 
                 <div className="bg-black/[0.15] flex-nowrap inline-block p-2 rounded-lg mt-6 shadow-lg">
-                    <ProgressBar className="right-0" name={pokemonData.stats[0].stat.name} value={pokemonData.stats[0].base_stat} />
+                    <ProgressBar name={pokemonData.stats[0].stat.name} value={pokemonData.stats[0].base_stat} />
                     <ProgressBar name={pokemonData.stats[1].stat.name} value={pokemonData.stats[1].base_stat} />
                     <ProgressBar name={pokemonData.stats[2].stat.name} value={pokemonData.stats[2].base_stat} />
                     <ProgressBar name={pokemonData.stats[3].stat.name} value={pokemonData.stats[3].base_stat} />
