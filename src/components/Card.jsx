@@ -47,18 +47,21 @@ const Card = ({ pokemon }) => {
                 background: `linear-gradient(150deg, ${colorA} 0%, ${colorB} 100%)`,
             }}
         >
+
+            <h2 className="text-xl text-white capitalize font-bold drop-shadow float-right">
+                {pokemon.id}
+            </h2>
             <h2 className="text-3xl text-white capitalize font-bold drop-shadow">
                 {pokemon.name}
             </h2>
 
-            {pokemon.types.map((p) => (
-                <p
-                    className="text-white drop-shadow capitalize"
-                    key={p.type.name}
-                >
-                    {p.type.name}
-                </p>
-            ))}
+
+            {pokemon.types.map((p) => {
+                let bgColor = typeColors[p.type.name];
+                return (
+                    <p style={{ background: `${bgColor}` }} className="text-white text-md font-semibold drop-shadow-md w-[80px] p-1 rounded-md my-2 border-2 border-black/[0.15] capitalize" key={p.type.name}>{p.type.name}</p>
+                )
+            })}
 
             <img
                 src={pokemon.sprites.front_default}

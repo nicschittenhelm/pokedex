@@ -40,18 +40,18 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                 >
                     <AiOutlineCloseCircle className="w-12 h-12 drop-shadow-md text-white" />
                 </button>
-                <h2 className="text-6xl mb-4 text-white capitalize font-bold drop-shadow">
+                <h2 className="text-6xl mb-8 text-white capitalize font-bold drop-shadow">
                     {pokemonData.name}
                 </h2>
 
-                {pokemonData.types.map((p) => (
-                    <p
-                        className="text-white text-2xl drop-shadow capitalize"
-                        key={p.type.name}
-                    >
-                        {p.type.name}
-                    </p>
-                ))}
+                <div className="flex">
+                    {pokemonData.types.map((p) => {
+                        let bgColor = typeColors[p.type.name];
+                        return (
+                            <p style={{ background: `${bgColor}` }} className="text-white text-2xl font-semibold drop-shadow-md w-[120px] p-1 rounded-md mr-4 border-2 border-black/[0.15] capitalize" key={p.type.name}>{p.type.name}</p>
+                        )
+                    })}
+                </div>
 
                 <div className="bg-black/[0.15] flex-nowrap inline-block p-2 rounded-lg mt-6 shadow-lg">
                     <ProgressBar name={pokemonData.stats[0].stat.name} value={pokemonData.stats[0].base_stat} />
@@ -60,8 +60,15 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                     <ProgressBar name={pokemonData.stats[3].stat.name} value={pokemonData.stats[3].base_stat} />
                     <ProgressBar name={pokemonData.stats[4].stat.name} value={pokemonData.stats[4].base_stat} />
                     <ProgressBar name={pokemonData.stats[5].stat.name} value={pokemonData.stats[5].base_stat} />
+                    <div className="mt-4">
+                        <p className="text-white text-xl font-semibold">Height: {(pokemonData.height).toFixed(1) / 10}m</p>
+                        <p className="text-white text-xl font-semibold">Weight: {(pokemonData.weight).toFixed(1) / 10}kg</p>
+                    </div>
 
                 </div>
+
+
+
 
                 <button
                     onClick={() => {
@@ -84,13 +91,13 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                     <img
                         src={pokemonData.sprites.front_shiny}
                         alt={pokemonData.name}
-                        className="absolute w-full md:bottom-[-150px] md:right-[-175px] bottom-[-50px] right-[-80px] rendering-pixelated"
+                        className="absolute w-full md:bottom-[-150px] md:right-[-175px] bottom-[-50px] right-[-80px] rendering-pixelated -z-50"
                     />
                 ) : (
                     <img
                         src={pokemonData.sprites.front_default}
                         alt={pokemonData.name}
-                        className="absolute w-full md:bottom-[-150px] md:right-[-175px] bottom-[-50px] right-[-80px] rendering-pixelated"
+                        className="absolute w-full md:bottom-[-150px] md:right-[-175px] bottom-[-50px] right-[-80px] rendering-pixelated -z-50"
                     />
                 )}
             </div>
@@ -99,4 +106,4 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
     );
 }
 
-// useState causes infinite loop, needs fix :,(
+// todo: optimize for mobile devices
