@@ -34,7 +34,7 @@ const Card = ({ pokemon }) => {
         colorB = typeColors[pokemon.types[1].type.name];
     } else {
         colorA = typeColors[pokemon.types[0].type.name];
-        colorB = "rgba(0,0,0,0)";
+        colorB = "rgba(255,255,255,1)";
     }
 
     return (

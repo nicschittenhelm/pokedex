@@ -30,6 +30,7 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                     background: `linear-gradient(150deg, ${colorA} 0%, ${colorB} 100%)`,
                 }}
             >
+
                 <button
                     onClick={(e) => {
                         e.stopPropagation();
@@ -40,7 +41,8 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                 >
                     <AiOutlineCloseCircle className="w-12 h-12 drop-shadow-md text-white" />
                 </button>
-                <h2 className="text-6xl mb-8 text-white capitalize font-bold drop-shadow">
+
+                <h2 className="md:text-6xl text-5xl mb-8 text-white capitalize font-bold drop-shadow">
                     {pokemonData.name}
                 </h2>
 
@@ -48,12 +50,12 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                     {pokemonData.types.map((p) => {
                         let bgColor = typeColors[p.type.name];
                         return (
-                            <p style={{ background: `${bgColor}` }} className="text-white text-2xl font-semibold drop-shadow-md w-[120px] p-1 rounded-md mr-4 border-2 border-black/[0.15] capitalize" key={p.type.name}>{p.type.name}</p>
+                            <p style={{ background: `${bgColor}` }} className="text-white md:text-2xl text-xl font-semibold drop-shadow-md md:w-[120px] w-[100px] p-1 rounded-md mr-4 border-2 border-black/[0.15] capitalize" key={p.type.name}>{p.type.name}</p>
                         )
                     })}
                 </div>
 
-                <div className="bg-black/[0.15] flex-nowrap inline-block p-2 rounded-lg mt-6 shadow-lg">
+                <div className="md:bg-black/[0.08] flex flex-wrap md:inline-block p-2 rounded-lg md:mt-6 md:shadow-lg">
                     <ProgressBar name={pokemonData.stats[0].stat.name} value={pokemonData.stats[0].base_stat} />
                     <ProgressBar name={pokemonData.stats[1].stat.name} value={pokemonData.stats[1].base_stat} />
                     <ProgressBar name={pokemonData.stats[2].stat.name} value={pokemonData.stats[2].base_stat} />
@@ -61,8 +63,8 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
                     <ProgressBar name={pokemonData.stats[4].stat.name} value={pokemonData.stats[4].base_stat} />
                     <ProgressBar name={pokemonData.stats[5].stat.name} value={pokemonData.stats[5].base_stat} />
                     <div className="mt-4">
-                        <p className="text-white text-xl font-semibold">Height: {(pokemonData.height).toFixed(1) / 10}m</p>
-                        <p className="text-white text-xl font-semibold">Weight: {(pokemonData.weight).toFixed(1) / 10}kg</p>
+                        <p className="text-white md:text-xl text-md font-semibold">Height: {(pokemonData.height).toFixed(1) / 10}m</p>
+                        <p className="text-white md:text-xl text-md font-semibold">Weight: {(pokemonData.weight).toFixed(1) / 10}kg</p>
                     </div>
 
                 </div>
@@ -105,5 +107,3 @@ export default function CardPopup({ open, close, pokemonData, typeColors }) {
         document.getElementById("portal")
     );
 }
-
-// todo: optimize for mobile devices
