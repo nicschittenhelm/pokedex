@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import CardPopup from "./CardPopup";
 
 var typeColors = {

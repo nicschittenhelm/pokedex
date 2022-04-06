@@ -1,42 +1,64 @@
 import React from "react";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import ToggleTheme from "./components/ToggleTheme";
 
+
 const URL = "https://pokeapi.co/api/v2/pokemon/";
+const MAX_POKEMON = 898; //898
+const OFFSET = 24;
+let currMaxPokemon = 1;
 
 const App = () => {
+
+
     const [pokemon, setPokemon] = useState("");
     const [loading, setLoading] = useState(true);
-    const [isDark, setisDark] = useState(false);
 
-    const fillPokedex = async () => {
-        setLoading(true);
-        let pokedex = [];
-        for (let i = 1; i <= 151; i++) {
-            pokedex.push(await getPokemonData(i));
+    const loadPokemon = async () => {
+
+        let newPokemon = [];
+
+        if (currMaxPokemon + OFFSET <= MAX_POKEMON) {
+            for (let i = currMaxPokemon; i < currMaxPokemon + OFFSET; i++) {
+                await axios.get(`${URL}${i}`).then(({ data }) => {
+                    newPokemon.push(data)
+                });
+            }
+        } else if (currMaxPokemon + OFFSET > MAX_POKEMON) {
+            for (let i = currMaxPokemon; i <= MAX_POKEMON; i++) {
+                await axios.get(`${URL}${i}`).then(({ data }) => {
+                    newPokemon.push(data)
+                });
+            }
+            console.log("MAX")
         }
-        setPokemon(pokedex);
+
+        setPokemon((oldPokemon) => [...oldPokemon, ...newPokemon]);
         setLoading(false);
+        console.log(pokemon)
     };
 
-    const getPokemonData = async (id) => {
-        const response = await fetch(`${URL}${id}`);
-        const data = await response.json();
-        return data;
-    };
+    const handleScroll = (e) => {
+        if ((e.target.documentElement.scrollTop + window.innerHeight >= e.target.documentElement.scrollHeight) && (currMaxPokemon + OFFSET <= MAX_POKEMON)) {
+            currMaxPokemon += OFFSET;
+            loadPokemon();
+        }
+    }
 
     useEffect(() => {
-        fillPokedex();
+        loadPokemon();
+        window.addEventListener("scroll", handleScroll)
     }, []);
 
     return loading ? (
-        <div className="w-full h-full min-h-full overflow-hidden bg-white dark:bg-gray-800">
+        <div className="w-full h-full min-h-full overflow-hidden bg-white dark:bg-gray-800 transition duration-300">
 
             <ToggleTheme />
             <div className="flex flex-col flex-1 min-h-screen justify-center items-center">
                 <svg
-                    className="w-24 md:w-32 fill-gray-800 dark:fill-white animate-spin-slow"
+                    className="w-24 md:w-32 fill-gray-800 dark:fill-white animate-spin-slow transition duration-300"
                     id="Layer_1"
                     data-name="Layer 1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +72,7 @@ const App = () => {
                 <h1 className="text-red-600 text-center mt-4 md:mt-10 text-md md:text-2xl font-bold">
                     Pokédex
                 </h1>
-                <p className="text-xs md:text-lg text-gray-800 dark:text-white">loading ...</p>
+                <p className="text-xs md:text-lg text-gray-800 dark:text-white transition duration-300">loading ...</p>
             </div>
 
         </div>
@@ -58,9 +80,7 @@ const App = () => {
         <div className="w-full h-full min-h-full overflow-hidden bg-white dark:bg-gray-800 transition duration-300">
 
             <ToggleTheme />
-            <h1 className="text-red-600 dark:text-white text-center mt-24 h-32 text-6xl lg:text-8xl font-bold">
-                Pokédex
-            </h1>
+            <h1 className="text-red-600 dark:text-white text-center mt-24 h-32 text-6xl lg:text-8xl font-bold">Pokédex</h1>
             <div className="flex flex-row min-h-screen justify-center items-center">
                 <div className="rounded-md drop-shadow-xl xl:w-[1150px] lg:w-[900px] md:w-[600px] flex flex-wrap justify-center">
                     {pokemon.map((p) => (
