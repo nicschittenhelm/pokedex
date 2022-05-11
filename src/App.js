@@ -6,19 +6,18 @@ import ToggleTheme from "./components/ToggleTheme";
 
 
 const URL = "https://pokeapi.co/api/v2/pokemon/";
-const MAX_POKEMON = 898; //898
+const MAX_POKEMON = 898; //898 max
 const OFFSET = 24;
 let currMaxPokemon = 1;
 
 const App = () => {
 
-
     const [pokemon, setPokemon] = useState("");
     const [loading, setLoading] = useState(true);
 
-    const loadPokemon = async () => {
+    let newPokemon = [];
 
-        let newPokemon = [];
+    const loadPokemon = async () => {
 
         if (currMaxPokemon + OFFSET <= MAX_POKEMON) {
             for (let i = currMaxPokemon; i < currMaxPokemon + OFFSET; i++) {
@@ -32,24 +31,22 @@ const App = () => {
                     newPokemon.push(data)
                 });
             }
-            console.log("MAX")
         }
 
         setPokemon((oldPokemon) => [...oldPokemon, ...newPokemon]);
         setLoading(false);
-        console.log(pokemon)
     };
 
     const handleScroll = (e) => {
         if ((e.target.documentElement.scrollTop + window.innerHeight >= e.target.documentElement.scrollHeight) && (currMaxPokemon + OFFSET <= MAX_POKEMON)) {
             currMaxPokemon += OFFSET;
-            loadPokemon();
+            loadPokemon()
         }
     }
 
     useEffect(() => {
         loadPokemon();
-        window.addEventListener("scroll", handleScroll)
+        window.addEventListener("scroll", handleScroll);
     }, []);
 
     return loading ? (
@@ -77,16 +74,18 @@ const App = () => {
 
         </div>
     ) : (
-        <div className="w-full h-full min-h-full overflow-hidden bg-white dark:bg-gray-800 transition duration-300">
+        <div className="w-full h-full min-h-full pb-48 overflow-hidden bg-white dark:bg-gray-800 transition duration-300">
 
             <ToggleTheme />
             <h1 className="text-red-600 dark:text-white text-center mt-24 h-32 text-6xl lg:text-8xl font-bold">Pokédex</h1>
-            <div className="flex flex-row min-h-screen justify-center items-center">
+            <div className=" flex flex-row min-h-screen justify-center items-center">
                 <div className="rounded-md drop-shadow-xl xl:w-[1150px] lg:w-[900px] md:w-[600px] flex flex-wrap justify-center">
                     {pokemon.map((p) => (
-                        <Card pokemon={p} key={p.name} />
+                        <Card pokemon={p} key={p.id} />
                     ))}
                 </div>
+
+
             </div>
 
         </div>
