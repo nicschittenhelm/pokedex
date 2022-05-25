@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# Pokédex
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a infinite-scroll Pokedèx with clickable cards, dark mode, dynamic gradient generation based on pokemon types and beautiful design.
+This was part of me trying out and learning new frameworks, a livedemo can be seen on my [Github-Pages](https://ebrofi.github.io/pokedex/).
 
-## Available Scripts
+# Technical details
 
-In the project directory, you can run:
+### This site was created using:
 
-### `npm start`
+* [Node.js](https://nodejs.org/en/)
+* [ReactJS](https://reactjs.org/)
+* [TailwindCSS](https://tailwindcss.com/)
+* [Axios](https://axios-http.com/)
+* [PokeAPI](https://pokeapi.co/docs/v2)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Problems and solutions:
 
-### `npm test`
+> **Having the modal nested inside each card caused clipping, wrong click behaviour and limited styling caused by the DOM.**
+>> This was solved using [React-Portals](https://reactjs.org/docs/portals.html) to render each modal outside the root div.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> **Scaling up images without blurring them**
+>> This was solved using a package called [tailwindcss-image-rendering](https://www.npmjs.com/package/tailwindcss-image-rendering), which adds the default CSS functionality `image-rendering: pixelated;` that tailwind doesnt offer.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> **Long loading times fetching all the pokemon data at once.**
+>> This was solved by fetching in increments of 24 whenever the user scolls to the bottom of the page, turning the pokedex into an infinite-scroller. The `loadPokemon()` function checks if the current index exceeds `MAX_POKEMON` in order to avoid fetching non existing pokemon id's. Newly fetched data gets appended to the `newPokemon[]` list and the component gets rerenderd.
