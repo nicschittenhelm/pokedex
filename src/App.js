@@ -17,6 +17,7 @@ const App = () => {
 
 
     const loadPokemon = async () => {
+
         let newPokemon = [];
 
         if (currMaxPokemon + OFFSET <= MAX_POKEMON) {
