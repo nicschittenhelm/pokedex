@@ -15,9 +15,9 @@ const App = () => {
     const [pokemon, setPokemon] = useState("");
     const [loading, setLoading] = useState(true);
 
-    let newPokemon = [];
 
     const loadPokemon = async () => {
+        let newPokemon = [];
 
         if (currMaxPokemon + OFFSET <= MAX_POKEMON) {
             for (let i = currMaxPokemon; i < currMaxPokemon + OFFSET; i++) {
