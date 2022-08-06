@@ -6,7 +6,7 @@ import ToggleTheme from "./components/ToggleTheme";
 
 
 const URL = "https://pokeapi.co/api/v2/pokemon/";
-const MAX_POKEMON = 905; //898 max
+const MAX_POKEMON = 905; //905 max
 const OFFSET = 24;
 let currMaxPokemon = 1;
 
