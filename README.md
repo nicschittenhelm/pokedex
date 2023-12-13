@@ -1,7 +1,7 @@
 # Pokédex
 
 This is a infinite-scroll Pokedèx with clickable cards, dark mode, dynamic gradient generation based on pokemon types and beautiful design.
-This was part of me trying out and learning new frameworks, a livedemo can be seen on my [Github-Pages](https://ebrofi.github.io/pokedex/).
+This was part of me trying out and learning new frameworks, a livedemo can be seen on my [Github-Pages](https://nicschittenhelm.github.io/pokedex/).
 
 # Technical details
 
